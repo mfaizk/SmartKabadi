@@ -4,10 +4,16 @@ import {
   Button,
   StyleSheet,
   Dimensions,
-  TextInput,
+  TouchableOpacity,
 } from 'react-native';
-
+import {useState} from 'react';
+import {Icon, Input, Pressable} from 'native-base';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 function LoginScreen() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isVisible, setisVisible] = useState(false);
+
   return (
     <View style={styles.mainContainer}>
       <View style={styles.headContainer}>
@@ -15,8 +21,47 @@ function LoginScreen() {
         <Text style={styles.subheadText}>Sign in to continue</Text>
       </View>
       <View style={styles.formContainer}>
-        <Text>Hello</Text>
-        <TextInput />
+        <View style={styles.formInputContainer}>
+          <Input
+            size={'l'}
+            placeholder="Email"
+            w="100%"
+            onSubmitEditing={() => {}}
+            onChangeText={t => {
+              setEmail(t);
+            }}
+          />
+          <Input
+            size={'l'}
+            placeholder="Password"
+            w="100%"
+            onSubmitEditing={() => {}}
+            onChangeText={t => {
+              setEmail(t);
+            }}
+            type={isVisible ? 'text' : 'password'}
+            InputRightElement={
+              <Pressable onPress={() => setisVisible(!isVisible)}>
+                <Icon
+                  as={
+                    <MaterialIcons
+                      name={isVisible ? 'visibility' : 'visibility-off'}
+                    />
+                  }
+                  size={5}
+                  mr="2"
+                  color="muted-400"
+                />
+              </Pressable>
+            }
+          />
+          <TouchableOpacity>
+            <Text style={styles.fgPass}>Forget Password?</Text>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity style={styles.loginButtonContainer}>
+          <Text style={styles.loginButtonText}>LOG IN</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -52,6 +97,28 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     padding: 10,
+  },
+  formInputContainer: {
+    // backgroundColor: 'blue',
+    height: Dimensions.get('window').height * 0.25,
+    justifyContent: 'space-evenly',
+    alignItems: 'flex-end',
+  },
+  fgPass: {
+    color: '#4C1D95',
+    fontWeight: 'bold',
+  },
+  loginButtonContainer: {
+    backgroundColor: '#5e0098',
+    maxWidth: 450,
+    minWidth: 350,
+    maxHeight: 55,
+    minHeight: 45,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loginButtonText: {
+    color: '#fff',
   },
 });
 
