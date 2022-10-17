@@ -13,7 +13,18 @@ const App = () => {
         initialRouteName="Home"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="Welcome" component={WelcomeScreen} />
-        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{
+            headerShown: true,
+            headerStyle: {backgroundColor: '#5e0098'},
+            headerTitleStyle: {color: '#fff'},
+            headerTintColor: '#fff',
+            headerTitle: 'Log In',
+            headerShadowVisible: false,
+          }}
+        />
         <Stack.Screen name="Signup" component={SignupScreen} />
       </Stack.Navigator>
     </NavigationContainer>
