@@ -9,10 +9,29 @@ import {
 import {useState} from 'react';
 import {Icon, Input, Pressable} from 'native-base';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-function LoginScreen() {
+import AntIcons from 'react-native-vector-icons/AntDesign';
+import Snackbar from 'react-native-snackbar';
+function LoginScreen({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isVisible, setisVisible] = useState(false);
+
+  const validator = () => {
+    if (email.trim() == '') {
+      Snackbar.show({
+        text: 'Enter email',
+        duration: Snackbar.LENGTH_SHORT,
+        backgroundColor: 'red',
+      });
+    }
+    if (password.trim() == '') {
+      Snackbar.show({
+        text: 'Enter password',
+        duration: Snackbar.LENGTH_SHORT,
+        backgroundColor: 'red',
+      });
+    }
+  };
 
   return (
     <View style={styles.mainContainer}>
@@ -26,7 +45,6 @@ function LoginScreen() {
             size={'l'}
             placeholder="Email"
             w="100%"
-            onSubmitEditing={() => {}}
             onChangeText={t => {
               setEmail(t);
             }}
@@ -35,9 +53,8 @@ function LoginScreen() {
             size={'l'}
             placeholder="Password"
             w="100%"
-            onSubmitEditing={() => {}}
             onChangeText={t => {
-              setEmail(t);
+              setPassword(t);
             }}
             type={isVisible ? 'text' : 'password'}
             InputRightElement={
@@ -59,9 +76,40 @@ function LoginScreen() {
             <Text style={styles.fgPass}>Forget Password?</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.loginButtonContainer}>
+        <TouchableOpacity
+          style={styles.loginButtonContainer}
+          onPress={() => {
+            validator();
+          }}>
           <Text style={styles.loginButtonText}>LOG IN</Text>
         </TouchableOpacity>
+        <View style={styles.lineContainer}>
+          <View style={styles.line}></View>
+          <Text>or</Text>
+          <View style={styles.line}></View>
+        </View>
+        <View style={styles.altLoginIconContainer}>
+          <Icon
+            style={styles.altLoginIcon}
+            as={<AntIcons name={'google'} />}
+            size={6}
+          />
+          <Icon
+            style={styles.altLoginIcon}
+            as={<AntIcons name={'facebook-square'} />}
+            size={6}
+          />
+        </View>
+        <View style={styles.footerContainer}>
+          <Text style={styles.dontText}>Don't have an account?</Text>
+          <TouchableOpacity
+            style={styles.signUptextContainer}
+            onPress={() => {
+              navigation.navigate('/signup');
+            }}>
+            <Text style={styles.signUptext}>Sign Up</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -119,6 +167,50 @@ const styles = StyleSheet.create({
   },
   loginButtonText: {
     color: '#fff',
+  },
+  lineContainer: {
+    // backgroundColor: 'blue',
+    marginTop: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  line: {
+    width: Dimensions.get('window').width * 0.35,
+    height: 1,
+    backgroundColor: '#E5E7EB',
+    margin: 20,
+  },
+  altLoginIconContainer: {
+    // backgroundColor: 'blue',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginTop: 10,
+  },
+  altLoginIcon: {
+    margin: 5,
+  },
+  footerContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    // backgroundColor: 'blue',
+    marginTop: 'auto',
+    textAlign: 'center',
+  },
+  signUptextContainer: {
+    // backgroundColor: 'blue',
+    margin: 2,
+  },
+  signUptext: {
+    color: '#5e0098',
+    fontWeight: 'bold',
+    // backgroundColor: 'blue',
+    textAlign: 'center',
+  },
+  dontText: {
+    color: '#6B7280',
   },
 });
 

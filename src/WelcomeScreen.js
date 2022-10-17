@@ -18,7 +18,7 @@ const WelcomeScreen = ({navigation}) => {
       <TouchableOpacity
         style={styles.loginButton}
         onPress={() => {
-          navigation.navigate('Login');
+          navigation.navigate('/login');
           // console.log('Login');
         }}>
         <Text style={styles.loginText}>Login</Text>
@@ -26,7 +26,7 @@ const WelcomeScreen = ({navigation}) => {
       <TouchableOpacity
         style={styles.signupButton}
         onPress={() => {
-          navigation.navigate('Signup');
+          navigation.navigate('/signup');
         }}>
         <Text style={styles.signupText}>Signup</Text>
       </TouchableOpacity>

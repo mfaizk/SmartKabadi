@@ -14,9 +14,9 @@ const App = () => {
         <Stack.Navigator
           initialRouteName="Home"
           screenOptions={{headerShown: false}}>
-          <Stack.Screen name="Welcome" component={WelcomeScreen} />
+          <Stack.Screen name="/welcome" component={WelcomeScreen} />
           <Stack.Screen
-            name="Login"
+            name="/login"
             component={LoginScreen}
             options={{
               headerShown: true,
@@ -27,7 +27,7 @@ const App = () => {
               headerShadowVisible: false,
             }}
           />
-          <Stack.Screen name="Signup" component={SignupScreen} />
+          <Stack.Screen name="/signup" component={SignupScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>
