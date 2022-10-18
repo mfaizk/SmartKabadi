@@ -7,8 +7,8 @@ import {NativeBaseProvider} from 'native-base';
 import useUserStore from './src/stores/user.store';
 import {useState, useEffect} from 'react';
 import auth from '@react-native-firebase/auth';
-import HomeScreen from './src/HomeScreen';
 import {navigationRef} from './src/stores/user.store';
+import HomeDrawer from './src/HomeDrawer';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
@@ -50,7 +50,7 @@ const App = () => {
               headerShadowVisible: false,
             }}
           />
-          <Stack.Screen name="/home" component={HomeScreen} />
+          <Stack.Screen name="/home" component={HomeDrawer} />
         </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>
