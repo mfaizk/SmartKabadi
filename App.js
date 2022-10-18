@@ -4,15 +4,26 @@ import WelcomeScreen from './src/WelcomeScreen';
 import LoginScreen from './src/LoginScreen';
 import SignupScreen from './src/SignupScreen';
 import {NativeBaseProvider} from 'native-base';
-
+import useUserStore from './src/stores/user.store';
+import {useState, useEffect} from 'react';
+import auth from '@react-native-firebase/auth';
+import HomeScreen from './src/HomeScreen';
+import {navigationRef} from './src/stores/user.store';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
+  const user = useUserStore(state => state.user);
+  const setUser = useUserStore(state => state.setUser);
+
+  // useEffect(() => {
+  //   console.log(user);
+  // }, []);
+
   return (
     <NativeBaseProvider>
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
         <Stack.Navigator
-          initialRouteName="Home"
+          initialRouteName={user ? '/home' : '/welcome'}
           screenOptions={{headerShown: false}}>
           <Stack.Screen name="/welcome" component={WelcomeScreen} />
           <Stack.Screen
@@ -28,6 +39,7 @@ const App = () => {
             }}
           />
           <Stack.Screen name="/signup" component={SignupScreen} />
+          <Stack.Screen name="/home" component={HomeScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </NativeBaseProvider>

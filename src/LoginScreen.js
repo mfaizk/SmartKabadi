@@ -1,35 +1,60 @@
 import {
   View,
   Text,
-  Button,
   StyleSheet,
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {Icon, Input, Pressable} from 'native-base';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntIcons from 'react-native-vector-icons/AntDesign';
 import Snackbar from 'react-native-snackbar';
+import useUserStore from './stores/user.store';
+import {firebase} from '@react-native-firebase/auth';
 function LoginScreen({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isVisible, setisVisible] = useState(false);
+  const login = useUserStore(state => state.loginWithEmailAndPassword);
+  const user = useUserStore(state => state.user);
+  const emailRef = React.createRef();
+  const passRef = React.createRef();
 
   const validator = () => {
-    if (email.trim() == '') {
+    if (email.trim() == '' && password.trim() == '') {
       Snackbar.show({
-        text: 'Enter email',
+        text: 'Enter information',
         duration: Snackbar.LENGTH_SHORT,
         backgroundColor: 'red',
       });
+    } else {
+      if (password.trim() == '') {
+        Snackbar.show({
+          text: 'Enter password',
+          duration: Snackbar.LENGTH_SHORT,
+          backgroundColor: 'red',
+        });
+      }
+      if (email.trim() == '') {
+        Snackbar.show({
+          text: 'Enter email',
+          duration: Snackbar.LENGTH_SHORT,
+          backgroundColor: 'red',
+        });
+      }
     }
-    if (password.trim() == '') {
-      Snackbar.show({
-        text: 'Enter password',
-        duration: Snackbar.LENGTH_SHORT,
-        backgroundColor: 'red',
-      });
+    if (email.trim() != '' && password.trim() != '') {
+      logger();
+    }
+  };
+
+  const logger = () => {
+    login(email.trim(), password.trim());
+
+    if (user) {
+      emailRef.current.clear();
+      passRef.current.clear();
     }
   };
 
@@ -48,6 +73,7 @@ function LoginScreen({navigation}) {
             onChangeText={t => {
               setEmail(t);
             }}
+            ref={emailRef}
           />
           <Input
             size={'l'}
@@ -56,6 +82,7 @@ function LoginScreen({navigation}) {
             onChangeText={t => {
               setPassword(t);
             }}
+            ref={passRef}
             type={isVisible ? 'text' : 'password'}
             InputRightElement={
               <Pressable onPress={() => setisVisible(!isVisible)}>
