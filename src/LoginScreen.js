@@ -11,13 +11,15 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AntIcons from 'react-native-vector-icons/AntDesign';
 import Snackbar from 'react-native-snackbar';
 import useUserStore from './stores/user.store';
-import {firebase} from '@react-native-firebase/auth';
+import {StackActions} from '@react-navigation/native';
+
 function LoginScreen({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isVisible, setisVisible] = useState(false);
   const login = useUserStore(state => state.loginWithEmailAndPassword);
   const user = useUserStore(state => state.user);
+  const gSignin = useUserStore(state => state.signinWithGoogle);
   const emailRef = React.createRef();
   const passRef = React.createRef();
 
@@ -120,6 +122,9 @@ function LoginScreen({navigation}) {
             style={styles.altLoginIcon}
             as={<AntIcons name={'google'} />}
             size={6}
+            onPress={() => {
+              gSignin();
+            }}
           />
           <Icon
             style={styles.altLoginIcon}
@@ -132,7 +137,7 @@ function LoginScreen({navigation}) {
           <TouchableOpacity
             style={styles.signUptextContainer}
             onPress={() => {
-              navigation.navigate('/signup');
+              navigation.dispatch(StackActions.replace('/signup'));
             }}>
             <Text style={styles.signUptext}>Sign Up</Text>
           </TouchableOpacity>

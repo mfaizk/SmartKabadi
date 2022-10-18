@@ -38,7 +38,18 @@ const App = () => {
               headerShadowVisible: false,
             }}
           />
-          <Stack.Screen name="/signup" component={SignupScreen} />
+          <Stack.Screen
+            name="/signup"
+            component={SignupScreen}
+            options={{
+              headerShown: true,
+              headerStyle: {backgroundColor: '#5e0098'},
+              headerTitleStyle: {color: '#fff'},
+              headerTintColor: '#fff',
+              headerTitle: 'Sign Up',
+              headerShadowVisible: false,
+            }}
+          />
           <Stack.Screen name="/home" component={HomeScreen} />
         </Stack.Navigator>
       </NavigationContainer>
