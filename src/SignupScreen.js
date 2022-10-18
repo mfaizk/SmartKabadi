@@ -149,7 +149,7 @@ function SignupScreen({navigation}) {
                 setIsButtonEnable(!isButtonEnable);
                 // console.log('checked');
               }}>
-              <Text>
+              <Text style={styles.tAndCTextOne}>
                 I accept the
                 <Text
                   onPress={() => {
@@ -261,6 +261,9 @@ const styles = StyleSheet.create({
   tAndCText: {
     color: '#5e0098',
     fontWeight: 'bold',
+  },
+  tAndCTextOne: {
+    color: '#758283',
   },
 
   loginButtonContainer: {

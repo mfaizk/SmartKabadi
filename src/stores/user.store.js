@@ -9,7 +9,7 @@ const UserStore = set => ({
   user: auth().currentUser,
   setUser: user => {
     set(state => ({
-      user: [user, state.user],
+      user: user.user,
     }));
   },
   signUpWithEmailAndPassword: (email, passsword) => {
@@ -18,7 +18,7 @@ const UserStore = set => ({
       .then(user => {
         // console.log(user);
         set(state => ({
-          user: [user, state.user],
+          user: user.user,
         }));
         try {
           if (navigationRef.isReady()) {
@@ -37,13 +37,13 @@ const UserStore = set => ({
         });
       });
   },
-  loginWithEmailAndPassword: (email, passsword) => {
-    auth()
+  loginWithEmailAndPassword: async (email, passsword) => {
+    await auth()
       .signInWithEmailAndPassword(email, passsword)
       .then(user => {
-        // console.log(user);
+        console.log(user);
         set(state => ({
-          user: [user, state.user],
+          user: user.user,
         }));
         try {
           if (navigationRef.isReady()) {
@@ -75,7 +75,7 @@ const UserStore = set => ({
         .signInWithCredential(googleCredential)
         .then(u => {
           set(state => ({
-            user: [u, state.user],
+            user: u.user,
           }));
           try {
             if (navigationRef.isReady()) {
@@ -99,7 +99,7 @@ const UserStore = set => ({
       .signOut()
       .then(() => {
         set(state => ({
-          user: [{}, state.user],
+          user: null,
         }));
         if (navigationRef.isReady()) {
           navigationRef.dispatch(StackActions.popToTop());
