@@ -12,14 +12,23 @@ const UserStore = set => ({
       user: user.user,
     }));
   },
-  signUpWithEmailAndPassword: (email, passsword) => {
+  signUpWithEmailAndPassword: (email, passsword, name) => {
     auth()
       .createUserWithEmailAndPassword(email, passsword)
       .then(user => {
-        // console.log(user);
         set(state => ({
           user: user.user,
         }));
+        auth()
+          .currentUser.updateProfile({
+            displayName: name,
+          })
+          .then(() => {
+            set(state => ({
+              user: auth().currentUser,
+            }));
+          });
+
         try {
           if (navigationRef.isReady()) {
             navigationRef.dispatch(StackActions.popToTop());
@@ -42,6 +51,7 @@ const UserStore = set => ({
       .signInWithEmailAndPassword(email, passsword)
       .then(user => {
         console.log(user);
+
         set(state => ({
           user: user.user,
         }));

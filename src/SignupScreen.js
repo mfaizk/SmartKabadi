@@ -16,6 +16,7 @@ import {StackActions} from '@react-navigation/native';
 function SignupScreen({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
   const [cnfpassword, setcnfPassword] = useState('');
   const [isVisible, setisVisible] = useState(false);
   const [isButtonEnable, setIsButtonEnable] = useState(false);
@@ -25,9 +26,10 @@ function SignupScreen({navigation}) {
   const emailRef = React.createRef();
   const passRef = React.createRef();
   const cnfpassRef = React.createRef();
+  const nameRef = React.createRef();
 
   const validator = () => {
-    if (email.trim() == '' && password.trim() == '') {
+    if (email.trim() == '' && password.trim() == '' && name.trim() == '') {
       Snackbar.show({
         text: 'Enter information',
         duration: Snackbar.LENGTH_SHORT,
@@ -48,6 +50,13 @@ function SignupScreen({navigation}) {
           backgroundColor: 'red',
         });
       }
+      if (name.trim() == '') {
+        Snackbar.show({
+          text: 'Enter name',
+          duration: Snackbar.LENGTH_SHORT,
+          backgroundColor: 'red',
+        });
+      }
     }
     if (password.trim() != cnfpassword.trim()) {
       Snackbar.show({
@@ -61,19 +70,21 @@ function SignupScreen({navigation}) {
     if (
       email.trim() != '' &&
       password.trim() != '' &&
-      password.trim() == cnfpassword.trim()
+      password.trim() == cnfpassword.trim() &&
+      name.trim() != ''
     ) {
       logger();
     }
   };
 
   const logger = () => {
-    login(email.trim(), password.trim());
+    login(email.trim(), password.trim(), name.trim());
 
     if (user) {
       emailRef.current.clear();
       passRef.current.clear();
       cnfpassRef.current.clear();
+      nameRef.current.clear();
     }
   };
 
@@ -93,6 +104,15 @@ function SignupScreen({navigation}) {
               setEmail(t);
             }}
             ref={emailRef}
+          />
+          <Input
+            size={'l'}
+            placeholder="Name"
+            w="100%"
+            onChangeText={t => {
+              setName(t);
+            }}
+            ref={nameRef}
           />
           <Input
             size={'l'}
@@ -247,9 +267,10 @@ const styles = StyleSheet.create({
   },
   formInputContainer: {
     // backgroundColor: 'blue',
-    height: Dimensions.get('window').height * 0.35,
+    height: Dimensions.get('window').height * 0.4,
     justifyContent: 'space-evenly',
     alignItems: 'flex-end',
+    overflow: 'scroll',
   },
   checkBoxContainer: {
     marginRight: 'auto',

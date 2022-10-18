@@ -13,7 +13,6 @@ const Stack = createNativeStackNavigator();
 
 const App = () => {
   const user = useUserStore(state => state.user);
-  const setUser = useUserStore(state => state.setUser);
 
   // useEffect(() => {
   //   console.log(user);

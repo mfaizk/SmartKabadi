@@ -22,7 +22,9 @@ const HomeDrawer = () => {
         component={HomeScreen}
         options={{
           headerShown: true,
-          headerTitle: `Welcome User`,
+          headerTitle: `Welcome ${
+            user?.displayName ? user?.displayName : 'Loading..'
+          }`,
           headerStyle: {backgroundColor: '#5e0098'},
           headerTitleStyle: {color: '#fff'},
           headerTintColor: '#fff',
