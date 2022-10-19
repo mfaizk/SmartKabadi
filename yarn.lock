@@ -1837,7 +1837,7 @@
 
 "@react-navigation/elements@^1.3.6":
   version "1.3.6"
-  resolved "https://registry.npmjs.org/@react-navigation/elements/-/elements-1.3.6.tgz"
+  resolved "https://registry.yarnpkg.com/@react-navigation/elements/-/elements-1.3.6.tgz#fa700318528db93f05144b1be4b691b9c1dd1abe"
   integrity sha512-pNJ8R9JMga6SXOw6wGVN0tjmE6vegwPmJBL45SEMX2fqTfAk2ykDnlJHodRpHpAgsv0DaI8qX76z3A+aqKSU0w==
 
 "@react-navigation/native-stack@^6.9.1":

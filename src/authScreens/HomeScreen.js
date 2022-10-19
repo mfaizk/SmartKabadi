@@ -7,13 +7,8 @@ const HomeScreen = () => {
   const out = useUserStore(state => state.signOut);
   return (
     <View>
-      <Text>Welcome {user?.email}</Text>
-      <Text
-        onPress={() => {
-          out();
-        }}>
-        Logout
-      </Text>
+      <Text style={{color: '#111'}}>Welcome {user?.email}</Text>
+      <Text style={{color: '#111'}}>Open Drawer to see logout option</Text>
     </View>
   );
 };
